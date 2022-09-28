@@ -22,7 +22,9 @@ class _MyAppState extends State<MyApp> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => NotesCubit()..getAllNotes(),
+          create: (context) => NotesCubit()
+            ..getAllNotes()
+            ..getAllUsers(),
         ),
       ],
       child: MaterialApp(

@@ -9,6 +9,9 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import '../domain/usecases/interstes_usecase.dart';
+import '../domain/usecases/users_usecase.dart';
+
 final instance = GetIt.instance;
 
 Future<void> initAppModule() async {
@@ -34,4 +37,10 @@ Future<void> initAppModule() async {
 
   instance.registerLazySingleton<NotesUseCase>(
       () => NotesUseCase(repositorImpl as RepositoryImpl));
+
+  instance.registerLazySingleton<UsersUseCase>(
+      () => UsersUseCase(repositorImpl as RepositoryImpl));
+
+  instance.registerLazySingleton<InterstsUseCase>(
+      () => InterstsUseCase(repositorImpl as RepositoryImpl));
 }

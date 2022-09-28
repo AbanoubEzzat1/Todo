@@ -40,4 +40,58 @@ class RepositoryImpl extends Repository {
       return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, UserModel>> getAllUsers() async {
+    final response = await _reomteDataSource.getAllUsers();
+    response.toDomain();
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _reomteDataSource.getAllUsers();
+
+        if (response.status == ApiInternalStatus.TrueSuccess) {
+          return Right(response.toDomain());
+        } else {
+          return Left(
+            Failure(
+              ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFFAULT,
+            ),
+          );
+        }
+      } catch (error) {
+        return Left(ErrorHandeler.handel(error).failure);
+        //sure error from internet (API)
+      }
+    } else {
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, InterstesModels>> getAllInterstes() async {
+    final response = await _reomteDataSource.getAllInterstes();
+    response.toDomain();
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _reomteDataSource.getAllInterstes();
+
+        if (response.status == ApiInternalStatus.TrueSuccess) {
+          return Right(response.toDomain());
+        } else {
+          return Left(
+            Failure(
+              ApiInternalStatus.FAILURE,
+              response.message ?? ResponseMessage.DEFFAULT,
+            ),
+          );
+        }
+      } catch (error) {
+        return Left(ErrorHandeler.handel(error).failure);
+        //sure error from internet (API)
+      }
+    } else {
+      return Left(DataSource.NO_INTERNET_CONNECTION.getFailure());
+    }
+  }
 }

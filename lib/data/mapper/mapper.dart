@@ -6,7 +6,7 @@ import 'package:abanoub_flutter_task/app/extintion.dart';
 import '../../domain/models.dart';
 import '../network/responsemodel.dart';
 
-extension UsersResponseDataMapper on NoteDataResponse? {
+extension NoteResponseDataMapper on NoteDataResponse? {
   NoteDataModel toDomain() {
     return NoteDataModel(
       this?.text.orEmpty() ?? Constants.empty,
@@ -17,17 +17,11 @@ extension UsersResponseDataMapper on NoteDataResponse? {
   }
 }
 
-// extension UsersResponseMapper on NoteResponse? {
-//   NoteModel toDomain() {
-//     return NoteModel(this!.noteDataResponse.toDomain());
-//   }
-// }
-
-extension UsersResponseMapper on NoteResponse? {
+extension NoteResponseMapper on NoteResponse? {
   NoteModel toDomain() {
     List<NoteDataModel> usersResponseData = (this
                 ?.noteDataResponse
-                .map((bannersResponse) => bannersResponse.toDomain()) ??
+                ?.map((bannersResponse) => bannersResponse.toDomain()) ??
             const Iterable.empty())
         .cast<NoteDataModel>()
         .toList();
@@ -35,19 +29,59 @@ extension UsersResponseMapper on NoteResponse? {
   }
 }
 
-extension NotesResponseMapper on NotesResponse? {
-  NoteDataModel toDomain() {
-    return NoteDataModel(
-      this?.text.orEmpty() ?? Constants.empty,
-      this?.placeDateTime.orEmpty() ?? Constants.empty,
-      this?.userId.orEmpty() ?? Constants.empty,
+// extension NotesResponseMapper on NotesResponse? {
+//   NoteDataModel toDomain() {
+//     return NoteDataModel(
+//       this?.text.orEmpty() ?? Constants.empty,
+//       this?.placeDateTime.orEmpty() ?? Constants.empty,
+//       this?.userId.orEmpty() ?? Constants.empty,
+//       this?.id.orEmpty() ?? Constants.empty,
+//     );
+//   }
+// }
+
+extension UserDataResponseMapper on UserDataResponse? {
+  UserDataModel toDomain() {
+    return UserDataModel(
+      this?.username.orEmpty() ?? Constants.empty,
+      this?.password.orEmpty() ?? Constants.empty,
+      this?.email.orEmpty() ?? Constants.empty,
+      this?.imageAsBase64.orEmpty() ?? Constants.empty,
+      this?.intrestId.orEmpty() ?? Constants.empty,
       this?.id.orEmpty() ?? Constants.empty,
     );
   }
 }
 
-// extension NotesAllDataResponseMapper on NotesAllDataResponse? {
-//   NotesAllDataModel toDomain() {
-//     return NotesAllDataModel(this?.noteResponse.toDomain());
-//   }
-// }
+extension UserResponseMapper on UserResponse? {
+  UserModel toDomain() {
+    List<UserDataModel> userDataModel = (this
+                ?.userDataResponse
+                .map((bannersResponse) => bannersResponse.toDomain()) ??
+            const Iterable.empty())
+        .cast<UserDataModel>()
+        .toList();
+    return UserModel(userDataModel);
+  }
+}
+
+extension InterstesDataResponseMapper on InterstesDataResponse? {
+  InterstesDataModel toDomain() {
+    return InterstesDataModel(
+      this?.intrestText.orEmpty() ?? Constants.empty,
+      this?.id.orEmpty() ?? Constants.empty,
+    );
+  }
+}
+
+extension InterstesResponseMapper on InterstesResponse? {
+  InterstesModels toDomain() {
+    List<InterstesDataModel> interstesData = (this
+                ?.interstesDataResponse
+                ?.map((bannersResponse) => bannersResponse.toDomain()) ??
+            const Iterable.empty())
+        .cast<InterstesDataModel>()
+        .toList();
+    return InterstesModels(interstesData);
+  }
+}

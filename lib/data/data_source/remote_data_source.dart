@@ -4,6 +4,8 @@ import '../responses/responses.dart';
 
 abstract class ReomteDataSource {
   Future<NoteResponse> getAllNotes();
+  Future<UserResponse> getAllUsers();
+  Future<InterstesResponse> getAllInterstes();
 }
 
 class ReomteDataSourceImpl implements ReomteDataSource {
@@ -13,5 +15,15 @@ class ReomteDataSourceImpl implements ReomteDataSource {
   @override
   Future<NoteResponse> getAllNotes() async {
     return await _appServiceClient.getAllNotes();
+  }
+
+  @override
+  Future<UserResponse> getAllUsers() async {
+    return await _appServiceClient.getAllUsers();
+  }
+
+  @override
+  Future<InterstesResponse> getAllInterstes() async {
+    return await _appServiceClient.getAllInterstes();
   }
 }
